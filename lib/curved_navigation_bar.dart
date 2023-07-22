@@ -77,7 +77,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     super.didUpdateWidget(oldWidget);
     if (oldWidget.index != widget.index) {
       final newPosition = widget.index / _length;
-      _pos = newPosition;
+      _startingPos = _pos;
       _endingIndex = widget.index;
       _animationController.animateTo(newPosition,
           duration: widget.animationDuration, curve: widget.animationCurve);
@@ -173,10 +173,9 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
     }
     final newPosition = index / _length;
     setState(() {
-      _startingPos = _pos;
+      _pos = newPosition;
       _endingIndex = index;
-      _animationController.animateTo(newPosition,
-          duration: widget.animationDuration, curve: widget.animationCurve);
+      _icon = widget.items[index];
     });
   }
 }
