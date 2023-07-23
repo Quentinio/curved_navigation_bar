@@ -17,12 +17,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
-          index: 0,
+          index: 2,
           height: 60.0,
           items: <Widget>[
             Icon(Icons.add, size: 30),
             Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
+            Icon(Icons.compare_arrows, size: 20),
             Icon(Icons.call_split, size: 30),
             Icon(Icons.perm_identity, size: 30),
           ],
@@ -34,6 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           onTap: (index) {
             setState(() {
               _page = index;
+              print(index);
             });
           },
           letIndexChange: (index) => true,
