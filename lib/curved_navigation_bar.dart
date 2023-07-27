@@ -145,13 +145,14 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             child: SizedBox(
                 height: 100.0,
                 child: Row(
-                    children: widget.items.map((item) {
+                    children: List<Widget>.generate(widget.items.length, (i) {
                   return NavButton(
                     onTap: _buttonTap,
                     position: _pos,
                     length: _length,
-                    index: widget.items.indexOf(item),
-                    child: Center(child: item),
+                    index: i,
+                    child: widget.items[i],
+                    isSelected: i == _endingIndex,
                   );
                 }).toList())),
           ),
@@ -172,11 +173,11 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
       widget.onTap!(index);
     }
     final newPosition = index / _length;
-    // setState(() {
+    setState(() {
     //   _startingPos = 3;
-    //   _endingIndex = index;
+      _endingIndex = index;
     //   _animationController.animateTo(newPosition,
     //       duration: widget.animationDuration, curve: widget.animationCurve);
-    // });
+    });
   }
 }
