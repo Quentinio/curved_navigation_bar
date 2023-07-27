@@ -6,7 +6,6 @@ class NavButton extends StatelessWidget {
   final int index;
   final ValueChanged<int> onTap;
   final Widget child;
-  final bool isSelected;
 
   NavButton({
     required this.onTap,
@@ -14,7 +13,6 @@ class NavButton extends StatelessWidget {
     required this.length,
     required this.index,
     required this.child,
-    this.isSelected = false,
   });
 
   @override
@@ -36,16 +34,9 @@ class NavButton extends StatelessWidget {
                   0, difference < 1.0 / length ? verticalAlignment * 40 : 0),
               child: Opacity(
                   opacity: difference < 1.0 / length * 0.99 ? opacity : 1.0,
-                  child: IconTheme(
-                    data: IconThemeData(
-                      color: isSelected ? Color(0xff009DE4) : Colors.black, // Change color based on isSelected
-                    ),
-                    child: child,
-                  )),
+                  child: child),
             )),
       ),
     );
   }
 }
-
-
