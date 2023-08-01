@@ -26,6 +26,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Icon(Icons.call_split, size: 30),
             Icon(Icons.perm_identity, size: 30),
           ],
+          labels: [
+            'Add',
+            'List',
+            'Compare',
+            'Call',
+            'Identi',
+          ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
           backgroundColor: Colors.blueAccent,

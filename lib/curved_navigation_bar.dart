@@ -7,6 +7,7 @@ typedef _LetIndexPage = bool Function(int value);
 
 class CurvedNavigationBar extends StatefulWidget {
   final List<Widget> items;
+  final List<String> labels;
   final int index;
   final Color color;
   final Color? buttonBackgroundColor;
@@ -20,6 +21,7 @@ class CurvedNavigationBar extends StatefulWidget {
   CurvedNavigationBar({
     Key? key,
     required this.items,
+    required this.labels,
     this.index = 0,
     this.color = Colors.white,
     this.buttonBackgroundColor,
@@ -29,7 +31,8 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
-  })  : letIndexChange = letIndexChange ?? ((_) => true),
+  })
+      : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items != null),
         assert(items.length >= 1),
         assert(0 <= index && index < items.length),
@@ -92,7 +95,9 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Container(
       color: widget.backgroundColor,
       height: widget.height,
@@ -101,7 +106,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
         alignment: Alignment.bottomCenter,
         children: <Widget>[
           Positioned(
-            bottom: -40 - (75.0 - widget.height),
+            bottom: -30 - (75.0 - widget.height),
             left: Directionality.of(context) == TextDirection.rtl
                 ? null
                 : _pos * size.width,
@@ -143,17 +148,20 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
             right: 0,
             bottom: 0 - (75.0 - widget.height),
             child: SizedBox(
-                height: 100.0,
-                child: Row(
-                    children: widget.items.map((item) {
+              height: 100.0,
+              child: Row(
+                children: widget.items.asMap().entries.map((MapEntry<int, Widget> entry) {
+                  int idx = entry.key;
+                  Widget item = entry.value;
                   return NavButton(
-                    onTap: _buttonTap,
-                    position: _pos,
-                    length: _length,
-                    index: widget.items.indexOf(item),
-                    child: Center(child: item),
+                      onTap: _buttonTap,
+                      position: _pos,
+                      length: _length,
+                      index: widget.items.indexOf(item),
+                      child: Center(child: item),
+                    label: widget.labels[idx].toString(),
                   );
-                }).toList())),
+                }).toList(),),),
           ),
         ],
       ),
